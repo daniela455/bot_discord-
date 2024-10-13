@@ -1,0 +1,33 @@
+import discord
+from discord.ext import commands
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='$', intents=intents)
+
+@bot.event
+async def on_ready():
+    print(f'We have logged in as {bot.user}')
+
+@bot.command()
+async def hola(ctx):
+    await ctx.send(f'Hola, soy un bot de adivinansas')
+
+@bot.command()
+async def instrucciones (ctx):
+    await ctx.send("para jugar este juego tines que responder correctamente 5 de las 10 adivinansas para jugar escribe: $jugar")
+
+@bot.command()
+async def jugar (ctx):
+    with open('adivinansas.txt', 'r', encoding='utf-8') as archivo:
+    elementos = archivo.readlines() 
+
+elementos = [elemento.strip() for elemento in elementos]
+
+elemento_aleatorio = random.choice(elementos)
+
+    await ctx.send(elemento_aleatorio)
+
+
+bot.run("MTI4NTQyMTE2MTU3NjAwOTc0OA.Ge-TRg.FeWdM4uZNuPtliW1juXJwPJCHHmLT11YWJPxdQ")
